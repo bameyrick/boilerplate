@@ -1,13 +1,15 @@
-name: Tests
+name: Publish to NPM
 
-on: [push, pull_request]
+on:
+  release:
+    types: [created]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v2
 
       - name: Set node version
@@ -22,8 +24,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run the tests
-        run: npm test -- --coverage
+      - name: Build
+        run: npm run build
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Publish package on NPM 📦
+        run: npm version  ${{github.ref_name}} --allow-same-version && npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
