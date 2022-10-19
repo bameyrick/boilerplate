@@ -1,10 +1,14 @@
 {
   "root": true,
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "@typescript-eslint"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "extends": ["plugin:prettier/recommended"],
+      "extends": [
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
       "rules": {
         "no-unused-vars": "off",
         "no-duplicate-imports": "error",
